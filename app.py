@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template
 import socket
-import pymysql
+import mysql.connector
 import os
 
 app = Flask(__name__)
@@ -16,7 +16,7 @@ def main():
     db_connect_result = False
     err_message = ""
     try:
-        pymysql.connect(host=DB_Host, database=DB_Database, user=DB_User, passwd=DB_Password)
+        mysql.connector.connect(host=DB_Host, database=DB_Database, user=DB_User, passwd=DB_Password)
         color = '#39b54b'
         db_connect_result = True
     except Exception as e:
