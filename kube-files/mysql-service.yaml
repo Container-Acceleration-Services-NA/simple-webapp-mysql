@@ -1,10 +1,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  db: mysql
+  name: mysql
 spec:
   selector:
-    name: mysql
+    db: mysql
   ports:
   - port: 3306
     targetPort: 3306
