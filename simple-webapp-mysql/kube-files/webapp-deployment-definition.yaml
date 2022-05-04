@@ -1,0 +1,32 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: simple-webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simple-webapp
+  template:
+    metadata:
+      labels:
+        app: simple-webapp
+    spec:
+      volumes:
+        - name: app-secret-volumes
+          secret:
+            secretName: app-secret
+            defaultMode: 420
+      containers:
+        - name: simple-webapp
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          volumeMounts:
+            - name: app-secret-volumes
+              readOnly: true
+              mountPath: /opt/app-secret-volumes
+          envFrom:
+            - secretRef:
+                name: app-secret
+          image: 'quay.io/fmeneses/simple-webapp-mysql:latest'
